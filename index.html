@@ -81,7 +81,7 @@
 				"type": "geojson",
 				"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 			});
-			map.addSource('plates', {
+			map.addSource('Tectonic plates', {
 				"type": "geojson",
 				"data": "plates.geojson"
 			
@@ -119,9 +119,9 @@
 
 			});
 			map.addLayer({
-							"id": "plates",
+							"id": "Tectonic plates",
 							"type": "line",
-							"source": "plates",
+							"source": "Tectonic plates",
 							"layout": {
 							"visibility": "visible",
 							},
@@ -154,7 +154,7 @@
 		});
 
 //Thanks to the Mapbox tutorial for this code to toddle layers on/off		
-var toggle = [ 'plates'];
+var toggle = [ 'Tectonic plates'];
 
 for (var i = 0; i < toggle.length; i++) {
     var id = toggle[i];
