@@ -130,7 +130,7 @@
 
 			map.on('click', 'quakes', function (e) {
 				var coordinates= e.features[0].geometry.coordinates.slice();
-				var description= "<p>Magnitude: "+e.features[0].properties.mag+"<br>Location: "+e.features[0].properties.place+"<br> URL: <a href= '"+e.features[0].properties.url+"'> Click here for more information about this event </a> </p>"
+				var description= "<p>Magnitude: "+e.features[0].properties.mag+"<br>Location: "+e.features[0].properties.place+"<br> URL: <a target= "_blank" href= '"+e.features[0].properties.url+"'> Click here for more information about this event </a> </p>"
 			//popup only appears over feature being pointed to if map is zoomed out	
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
