@@ -33,6 +33,17 @@
 				"type": "geojson",
 				"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 			});
+			map.addSource('plates', {
+				"type": "geojson",
+				"data": "plates.geojson"
+			
+			});
+			map.addLayer({
+				"id": "plates",
+				"type": "fill",
+				"source": "plates"
+
+			});
 			map.addLayer({
 				"id":"quakes",
 				"type": "circle",
