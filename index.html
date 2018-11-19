@@ -62,10 +62,11 @@
     #menu a.active:hover {
         background: #3074a4;
     }
-/* style for return to home button */
 
-    #menu1 {
-        background: #fff;
+    /* Style for the Return Home Button.  Adapted from the Mapbox "Fly to" Tutorial*/
+
+        #home {
+        display: block;
         position: absolute;
         z-index: 1;
         top: 40px;
@@ -73,38 +74,12 @@
         border-radius: 3px;
         width: 120px;
         border: 1px solid rgba(0,0,0,0.4);
-        font-family: 'Open Sans', sans-serif;
-    }
-
-    #menu1 a {
-        font-size: 13px;
-        color: #404040;
-        display: block;
-        margin: 0;
-        padding: 0;
-        padding: 10px;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0,0,0,0.25);
+        font-size: 12px;
         text-align: center;
-    }
+        color: #fff;
+        background: #3887be;
+    } 
 
-    #menu1 a:last-child {
-        border: none;
-    }
-
-    #menu1 a:hover {
-        background-color: #f8f8f8;
-        color: #196666;
-    }
-
-    #menu1 a.active {
-        background-color: #29a3a3;
-        color: #ffffff;
-    }
-
-    #menu1 a.active:hover {
-        background: #3074a4;
-    }
 </style>
 
 <nav id="menu"></nav>
@@ -228,6 +203,14 @@ for (var i = 0; i < toggle.length; i++) {
     layers.appendChild(link);
 }
 
+document.getElementById('fly').addEventListener('click', function () {
+    // Fly to a random location by offsetting the point -74.50, 40
+    // by up to 5 degrees.
+    map.flyTo({
+        center: [-174, 20],
+		Zoom: 1
+	});
+          
 
 
 // Add zoom and rotation controls to the map.
