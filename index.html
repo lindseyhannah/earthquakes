@@ -33,10 +33,6 @@
 				"type": "geojson",
 				"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 			});
-			map.addSource('ringOfFire', {
-				"type": "json",
-				"data": "ring_of_fire.json"
-			});
 			map.addLayer({
 				"id":"quakes",
 				"type": "circle",
@@ -65,11 +61,6 @@
 					} 
 
 			});
-			map.addLayer({
-				"id": "ringFire",
-				"type": "polygon",
-				"source": "ringOfFire"
-			})
 
 			map.on('click', 'quakes', function (e) {
 				var coordinates= e.features[0].geometry.coordinates.slice();
