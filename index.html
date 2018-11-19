@@ -72,12 +72,11 @@
 							"type": "fill-extrusion",
 							"source": "plates",
 							"paint":{
-								"fill-opacity":0.99
 								"fill-extrusion-color": "#192A3D"
 							}
 
 						});
-			
+
 			map.on('click', 'quakes', function (e) {
 				var coordinates= e.features[0].geometry.coordinates.slice();
 				var description= "<p>Magnitude: "+e.features[0].properties.mag+"<br>Location: "+e.features[0].properties.place+"<br> URL: <a href= '"+e.features[0].properties.url+"'> Click here for more information about this event </a> </p>"
