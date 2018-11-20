@@ -25,7 +25,7 @@
         
         body { margin:0; padding:0; }
         #map {height: 70vh; width: 99%; padding: 10px }
-        #map2 {height: 70vh; background-color: grey; width: 99%, padding: 10px}
+        #map2 {height: 70vh; width: 99%, padding: 10px}
 	
 	
 
@@ -271,6 +271,8 @@ map.addControl(new mapboxgl.NavigationControl()
 
 	<!--Map 2-->
 <hr>
+<hr>
+
 <h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
 <p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below. </p>
 
@@ -282,8 +284,8 @@ map.addControl(new mapboxgl.NavigationControl()
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
 });
 			var map2 = new L.Map("map2", {
-				center: new L.LatLng(37.7, -122.4),
-				zoom: 12
+				center: new L.LatLng(39, -96.4),
+				zoom: 2
 			});
 			map2.addLayer(Esri_WorldStreetMap);
 
