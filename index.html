@@ -281,7 +281,7 @@ map.addControl(new mapboxgl.NavigationControl()
 <h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
 <p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below. </p>
 
-<button id= "gohome2"> Full Extent </button>
+<!--<button id= "gohome2"> Full Extent </button>-->
 
 		<div id="map2"></div>
 	<!-- the script for my map -->
@@ -303,10 +303,10 @@ map.addControl(new mapboxgl.NavigationControl()
 			    })
 			.addTo(map2);
 
-			document.getElementById('gohome2').addEventListener('click', function () {
-				map2.setCenter([39, -96.4]);
-		   		map2.setZoom(2);
-			});
+			//document.getElementById('gohome2').addEventListener('click', function () {
+			//	map2.setCenter([39, -96.4]);
+		   	//	map2.setZoom(2);
+		//	});
 			</script>
 
 		</body>
