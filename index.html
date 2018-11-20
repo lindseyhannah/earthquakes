@@ -10,24 +10,24 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
-   <!-- the leaflet CSS and JS library-->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
-	integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-	crossorigin=""/>
-	<!-- Make sure you put this AFTER Leaflet's CSS -->
-	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-	crossorigin=""></script>
-	<!-- the Omnivore plugin to convert KML to GeoJSON -->
-	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script> 
+ 
 
 	<style>
         
         body { margin:0; padding:0; }
         #map {height: 70vh; width: 99%; padding: 10px }
-        #map2 {height: 70vh; width: 99%, padding: 10px}
+        #map2 {height: 70vh; width: 70%; float: left ; padding: 10px}
 	
-	
+	/* Style for the block that test will print to on Map 2 */
+		#capture {
+	       height: 70vh;
+	       width: 400px;
+	       overflow: hidden;
+	      
+	       background-color: #ECECFB;
+	       border: thin solid #333;
+	       border-left: none;
+       }
 
 		h1 {
 		font-family: 'Source Sans Pro', sans-serif;
@@ -54,7 +54,7 @@
 <!-- Thanks to Mapbox toggle tutorial for this code https://www.mapbox.com/mapbox-gl-js/example/toggle-layers/-->
 
 <style>
-/* style for the toggle button */
+/* style for the toggle button.  Thats to tutorial from mapbox for the basis of this code*/
     #menu {
         background: #fff;
         position: absolute;
@@ -132,14 +132,16 @@
  
 <h1 style= "padding: 10px"> USGS Recorded Earthquakes </h1>
 <hr>
-<p> Points represent all events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes.  </p>
+<p> Points represent all earthquake events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes.  </p>
 <nav id="menu"></nav>
 
 	<div id='map'></div>
 	
+	<!-- The button to Unzoon the map -->
 	<button id= "gohome"> Full Extent </button>
 
 	<script>
+	//The Map box map
 	mapboxgl.accessToken = 'pk.eyJ1IjoibG1oYW5uYWgiLCJhIjoiY2pvNHYzNnZ4MDBuNjNxcHUwZzR3dmR5bSJ9.c2ULzGUVCYiPhkvdiqTRZw';
 		var map = new mapboxgl.Map({
 		container: 'map',
@@ -154,12 +156,13 @@
 				"type": "geojson",
 				"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 			});
+			//Adds geojson file with Tectonic plate data
 			map.addSource('Tectonic plates', {
 				"type": "geojson",
 				"data": "plates.geojson"
 			
 			});
-			
+			//Add circle markers to the map based on magnitude intensity. 
 			map.addLayer({
 				"id":"quakes",
 				"type": "circle",
@@ -191,6 +194,7 @@
 					} 
 
 			});
+			//Add layer with tectonic plates to the map in line format.  
 			map.addLayer({
 							"id": "Tectonic plates",
 							"type": "line",
@@ -201,6 +205,7 @@
 	
 						});
 
+			//Makes popup that queries the geojson data features and returns the information for the popup
 			map.on('click', 'quakes', function (e) {
 				var coordinates= e.features[0].geometry.coordinates.slice();
 				var description= "<p>Magnitude: "+e.features[0].properties.mag+"<br>Location: "+e.features[0].properties.place+"<br> URL: <a target= '_blank' href= '"+e.features[0].properties.url+"'> Click here for more information about this event </a> </p>"
@@ -226,7 +231,7 @@
 			});
 		});
 
-//Thanks to the Mapbox tutorial for this code to toddle layers on/off		
+//Thanks to the Mapbox tutorial for this code to toddle layers on/off.  This uses the #menu style 		
 var toggle = [ 'Tectonic plates'];
 
 for (var i = 0; i < toggle.length; i++) {
@@ -257,6 +262,7 @@ for (var i = 0; i < toggle.length; i++) {
     layers.appendChild(link);
 }
 
+    //Code for the button to unzoom and return to original extent 
 	document.getElementById('gohome').addEventListener('click', function () {
 			map.setCenter([-174, 20]);
 		    map.setZoom(1);
@@ -279,44 +285,45 @@ map.addControl(new mapboxgl.NavigationControl()
 <hr>
 
 <h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
-<p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below. </p>
+<p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below.  Click the marker for information about the anomaly and percent confidence (0-100) that MODIS has detected a fire.  Data updates every 24hrs </p>
 
 <!--<button id= "gohome2"> Full Extent </button>-->
 
-		<div id="map2"></div>
-	<!-- the script for my map -->
-	<script>
-			//basemap from https://leaflet-extras.github.io/leaflet-providers/preview/ 
-			var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-});
-			var map2 = new L.Map("map2", {
-				center: new L.LatLng(39, -96.4),
-				zoom: 2
-			});
-			map2.addLayer(Esri_WorldStreetMap);
+<div id="map2"></div>
+    <div id="capture"></div>
+    <script>
+      var map2;
+      var src = 'https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_USA_contiguous_and_Hawaii_24h.kml';
 
-			//add a KML layer - uses cors-anywhere to bypass the CORS restrictions on NOAA. TEMPORARY WORKAROUND, Eventually need to hook up a server instead of doing it this way. 
-			var fire = omnivore.kml('https://cors-anywhere.herokuapp.com/https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_USA_contiguous_and_Hawaii_48h.kml')
-				.on('ready', function() {
-			        this.setStyle({color: 'red'});
-			        map2.fitBounds(fire.getBounds());
-			    })
-			.addTo(map2);
+      function initMap() {
+        map2 = new google.maps.Map(document.getElementById('map2'), {
+          center: new google.maps.LatLng(-19, 146),
+          zoom: 3,
+          style: 'map2',
+          gestureHandling: 'greedy',
+          mapTypeId: 'terrain'
+        });
+//Thanks to Google Map Develper Tutorial for this code.  https://developers.google.com/maps/documentation/javascript/kml
+        var kmlLayer = new google.maps.KmlLayer(src, {
+          suppressInfoWindows: true,
+          preserveViewport: false,
+          map: map2
+        });
 
-
-
-			//document.getElementById('gohome2').addEventListener('click', function () {
-			//	map2.setCenter([39, -96.4]);
-		   	//	map2.setZoom(2);
-		//	});
-			</script>
-
-		</body>
-		</html>
-	
- 
-</body>
+        //Prints KML data to the info window.  
+        kmlLayer.addListener('click', function(event) {
+          var content = event.featureData.infoWindowHtml;
+          var testimonial = document.getElementById('capture');
+          testimonial.innerHTML = content;
+        });
+      }
+    </script>
+    <!--My Google Map API-->
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnvwSziy1FdcNPosn5tdY3YgEPWIjWbJ4&callback=initMap">
+    </script>
+    <br>
+    <br>
+  </body>
 </html>
-
 
