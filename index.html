@@ -63,9 +63,9 @@
         background: #3074a4;
     }
 
-    /* Style for the Return Home Button.  Adapted from the Mapbox "Fly to" Tutorial*/
+    /* Style for the Return Home Button.*/
 
-        #home {
+        #button {
         display: block;
         position: absolute;
         z-index: 1;
@@ -80,11 +80,16 @@
         background: #3887be;
     } 
 
+
+
 </style>
 
 <nav id="menu"></nav>
 
 	<div id='map'></div>
+	
+	<button type="button" onclick="gohome()"> Original View </button>
+
 	<script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoibG1oYW5uYWgiLCJhIjoiY2pvNHYzNnZ4MDBuNjNxcHUwZzR3dmR5bSJ9.c2ULzGUVCYiPhkvdiqTRZw';
 		var map = new mapboxgl.Map({
@@ -210,7 +215,11 @@ for (var i = 0; i < toggle.length; i++) {
 //	});
 //});
           
-
+	function gohome() {
+		map.setCenter([-174, 20]);
+		map.setZoom(1);
+				
+			};
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl()
