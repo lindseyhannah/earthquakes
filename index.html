@@ -2,17 +2,35 @@
 <html>
 <head>
 	<!-- the mapbox libraries -->
-	
+	<title>Live data maps</title>
+
 	<meta charset='utf-8' />
-    <title>Earthquakes</title>
+    
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
-    <style>
+   <!-- the leaflet CSS and JS library-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+	integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+	crossorigin=""/>
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+	crossorigin=""></script>
+	<!-- the Omnivore plugin to convert KML to GeoJSON -->
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script> 
+
+	<style>
+        
         body { margin:0; padding:0; }
         #map {height: 70vh; width: 99%; padding: 10px }
-	<div id="map" style="width: 800px; height: 800px;" class="mapboxgl-map"></div> 
+        #map2 {height: 100vh; background-color: grey;}
+	
+	
+	
+	
+	
 
 		h1 {
 		font-family: 'Source Sans Pro', sans-serif;
@@ -251,9 +269,36 @@ map.addControl(new mapboxgl.NavigationControl()
 	
 	</script>
 
+<hr>
+
 
 	<!--Map 2-->
+<h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
 
+		<div id="map2"></div>
+	<!-- the script for my map -->
+	<script>
+			//basemap from https://leaflet-extras.github.io/leaflet-providers/preview/ 
+			var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+});
+			var map2 = new L.Map("map2", {
+				center: new L.LatLng(37.7, -122.4),
+				zoom: 12
+			});
+			map2.addLayer(Esri_WorldStreetMap);
+
+			//add a KML layer - uses cors-anywhere to bypass the CORS restrictions on NOAA. TEMPORARY WORKAROUND, Eventually need to hook up a server instead of doing it this way. 
+			var fire = omnivore.kml('https://cors-anywhere.herokuapp.com/https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_USA_contiguous_and_Hawaii_48h.kml')
+				.on('ready', function() {
+			        map2.fitBounds(fire.getBounds());
+			    })
+			.addTo(map2);
+
+			</script>
+
+		</body>
+		</html>
 	
  
 </body>
