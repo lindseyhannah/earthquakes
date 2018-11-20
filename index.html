@@ -114,6 +114,19 @@
         background: #CC6822
     } 
 
+     	#gohome2 {
+        display: block;
+        position: absolute;
+        bottom: 100px;
+        left: 20px;
+        border-radius: 3px;
+        width: 120px;
+        border: 1px solid rgba(0,0,0,0.4);
+        font-size: 12px;
+        text-align: center;
+        color: #fff;
+        background: #CC6822
+
 
 </style>
  
@@ -127,12 +140,6 @@
 	<button id= "gohome"> Full Extent </button>
 
 	<script>
-	//	button.on('click', function() {
-	//	map.setCenter([-174, 20]);
-	//	map.setZoom(1);
-	//			
-	//		});
-
 	mapboxgl.accessToken = 'pk.eyJ1IjoibG1oYW5uYWgiLCJhIjoiY2pvNHYzNnZ4MDBuNjNxcHUwZzR3dmR5bSJ9.c2ULzGUVCYiPhkvdiqTRZw';
 		var map = new mapboxgl.Map({
 		container: 'map',
@@ -274,6 +281,8 @@ map.addControl(new mapboxgl.NavigationControl()
 <h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
 <p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below. </p>
 
+<button id= "gohome2"> Full Extent </button>
+
 		<div id="map2"></div>
 	<!-- the script for my map -->
 	<script>
@@ -294,6 +303,10 @@ map.addControl(new mapboxgl.NavigationControl()
 			    })
 			.addTo(map2);
 
+			document.getElementById('gohome2').addEventListener('click', function () {
+				map.setCenter([39, -96.4]);
+		   		map.setZoom(2);
+			});
 			</script>
 
 		</body>
