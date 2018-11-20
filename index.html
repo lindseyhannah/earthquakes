@@ -91,12 +91,12 @@
 	<button type="button" onclick="gohome()"> Original View </button>
 
 	<script>
-		function gohome() {
+		button.on('click', function() {
 		map.setCenter([-174, 20]);
 		map.setZoom(1);
 				
 			};
-			
+
 	mapboxgl.accessToken = 'pk.eyJ1IjoibG1oYW5uYWgiLCJhIjoiY2pvNHYzNnZ4MDBuNjNxcHUwZzR3dmR5bSJ9.c2ULzGUVCYiPhkvdiqTRZw';
 		var map = new mapboxgl.Map({
 		container: 'map',
