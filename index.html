@@ -99,10 +99,10 @@
 
     /* Style for the Return Home Button.*/
 
-        #button {
+        #gohome {
         display: block;
         position: absolute;
-        z-index: 1;
+        
         top: 70px;
         left: 10px;
         border-radius: 3px;
@@ -124,8 +124,8 @@
 
 	<div id='map'></div>
 	
-	<!--<button type="button" onclick="gohome()"> Original View </button>
--->
+	<button id= "gohome"> Full Extent </button>
+
 	<script>
 	//	button.on('click', function() {
 	//	map.setCenter([-174, 20]);
@@ -250,13 +250,11 @@ for (var i = 0; i < toggle.length; i++) {
     layers.appendChild(link);
 }
 
-//document.getElementById('home').attachEvent('click', function () {
-//    map.flyTo({
-  //      center: [-174, 20],
-	//	Zoom: 1
-//	});
-//});
-          
+	document.getElementById('gohome').addEventListener('click', function () {
+			map.setCenter([-174, 20]);
+		    map.setZoom(1);
+			});
+
 
 
 // Add zoom and rotation controls to the map.
