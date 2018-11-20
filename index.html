@@ -80,22 +80,42 @@
         background: #3887be;
     } 
 
+    	h1 {
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 19pt;
+		font-weight: 300;
+		line-height: 1.75em;
+		color: #888;
+		position: center;
+	}
+    	p {
+    	font-family: 'Source Sans Pro', sans-serif;
+		font-size: 12pt;
+		font-weight: 300;
+		line-height: 1.75em;
+		color: #888;
+		padding: 10px;
+	}
 
 
 </style>
+
+<h1> USGS Recorded Earthquakes </h1>
+<hr>
+<p> Points represent all events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes. </p>
 
 <nav id="menu"></nav>
 
 	<div id='map'></div>
 	
-	<button type="button" onclick="gohome()"> Original View </button>
-
+	<!--<button type="button" onclick="gohome()"> Original View </button>
+-->
 	<script>
-		button.on('click', function() {
-		map.setCenter([-174, 20]);
-		map.setZoom(1);
-				
-			});
+	//	button.on('click', function() {
+	//	map.setCenter([-174, 20]);
+	//	map.setZoom(1);
+	//			
+	//		});
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoibG1oYW5uYWgiLCJhIjoiY2pvNHYzNnZ4MDBuNjNxcHUwZzR3dmR5bSJ9.c2ULzGUVCYiPhkvdiqTRZw';
 		var map = new mapboxgl.Map({
