@@ -13,13 +13,30 @@
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:99%; height: 600px; padding: 10px }
 	<div id="map" style="width: 800px; height: 800px;" class="mapboxgl-map"></div> 
+		
+    	h1 {
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 19pt;
+		font-weight: 300;
+		line-height: 1.75em;
+		color: #888;
+		position: center;
+	}
+    	p {
+    	font-family: 'Source Sans Pro', sans-serif;
+		font-size: 12pt;
+		font-weight: 300;
+		line-height: 1.75em;
+		color: #888;
+		padding: 10px;
+	}
+	</style>
 
+</head>
+<body>
+<!-- Thanks to Mapbox toggle tutorial for this code https://www.mapbox.com/mapbox-gl-js/example/toggle-layers/-->
 
-
-
-/* Thanks to Mapbox toggle tutorial for this code https://www.mapbox.com/mapbox-gl-js/example/toggle-layers/-->
-
-
+<style>
 /* style for the toggle button */
     #menu {
         background: #fff;
@@ -80,31 +97,12 @@
         background: #3887be;
     } 
 
-    	h1 {
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 19pt;
-		font-weight: 300;
-		line-height: 1.75em;
-		color: #888;
-		position: center;
-	}
-    	p {
-    	font-family: 'Source Sans Pro', sans-serif;
-		font-size: 12pt;
-		font-weight: 300;
-		line-height: 1.75em;
-		color: #888;
-		padding: 10px;
-	}
-
 
 </style>
-</head>
-<body>
 
 <h1> USGS Recorded Earthquakes </h1>
 <hr>
-<p> Points represent all events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes. </p>
+<p> Points represent all events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes.  
 
 <nav id="menu"></nav>
 
