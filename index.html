@@ -299,16 +299,11 @@ map.addControl(new mapboxgl.NavigationControl()
 			//add a KML layer - uses cors-anywhere to bypass the CORS restrictions on NOAA. TEMPORARY WORKAROUND, Eventually need to hook up a server instead of doing it this way. 
 			var fire = omnivore.kml('https://cors-anywhere.herokuapp.com/https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_USA_contiguous_and_Hawaii_48h.kml')
 				.on('ready', function() {
+			        this.setStyle({color: red});
 			        map2.fitBounds(fire.getBounds());
 			    })
-			    pointToLayer: function(feature, latlng){
-			    	var marker= L.circle(latlng, {
-			    		color: 'red',
-			    		fillColor: 'red',
-			    		radius: 10
-			    	})
-			    }
 			.addTo(map2);
+
 
 
 			//document.getElementById('gohome2').addEventListener('click', function () {
