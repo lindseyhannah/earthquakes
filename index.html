@@ -16,12 +16,12 @@
         
         body { margin:0; padding:0; }
         #map {height: 70vh; width: 99%; padding: 10px }
-        #map2 {height: 70vh; width: 70%; float: left ; padding: 10px}
+        #map2 {height: 70vh; width: 70%; float: left ; padding-left: 10px}
 	
 	/* Style for the block that test will print to on Map 2 */
 		#capture {
 	       height: 70vh;
-	       width: 400px;
+	       width: 420px;
 	       overflow: hidden;
 	      
 	       background-color: #ECECFB;
@@ -120,6 +120,7 @@
         bottom: 20px;
         left: 20px;
         border-radius: 3px;
+        float: bottom;
         width: 120px;
         border: 1px solid rgba(0,0,0,0.4);
         font-size: 12px;
@@ -287,10 +288,13 @@ map.addControl(new mapboxgl.NavigationControl()
 <h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
 <p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below.  Click the marker for information about the anomaly and percent confidence (0-100) that MODIS has detected a fire.  Data updates every 24hrs </p>
 
-<!--<button id= "gohome2"> Full Extent </button>-->
 
-<div id="map2"></div>
-    <div id="capture"></div>
+		<div id="map2"></div>
+		
+		<div id="capture"></div>
+
+		<!--<button id= "gohome2"> Full Extent </button> -->
+    
     <script>
       var map2;
       var src = 'https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_USA_contiguous_and_Hawaii_24h.kml';
@@ -316,7 +320,11 @@ map.addControl(new mapboxgl.NavigationControl()
           var testimonial = document.getElementById('capture');
           testimonial.innerHTML = content;
         });
+        //google.maps.event.addDomListener(outer, 'click', function() {
+ 		 //map.setCenter(-19, 146)
+ 		 //});
       }
+
     </script>
     <!--My Google Map API-->
     <script async defer
