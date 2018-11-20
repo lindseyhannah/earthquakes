@@ -95,7 +95,7 @@
 		map.setCenter([-174, 20]);
 		map.setZoom(1);
 				
-			};
+			});
 
 	mapboxgl.accessToken = 'pk.eyJ1IjoibG1oYW5uYWgiLCJhIjoiY2pvNHYzNnZ4MDBuNjNxcHUwZzR3dmR5bSJ9.c2ULzGUVCYiPhkvdiqTRZw';
 		var map = new mapboxgl.Map({
@@ -106,7 +106,7 @@
 		map.setZoom(1);
 
 		map.on('load', function(){
-			//Adds all earthquakes in the past week greater than 2.5 mag
+			//Adds all earthquakes in the past 7days greater than 2.5 mag
 			map.addSource('earthquakes', {
 				"type": "geojson",
 				"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
