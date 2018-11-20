@@ -301,7 +301,15 @@ map.addControl(new mapboxgl.NavigationControl()
 				.on('ready', function() {
 			        map2.fitBounds(fire.getBounds());
 			    })
+			    pointToLayer: function(feature, latlng){
+			    	var marker= L.circle(latlng, {
+			    		color: 'red',
+			    		fillColor: 'red',
+			    		radius: 10
+			    	})
+			    }
 			.addTo(map2);
+
 
 			//document.getElementById('gohome2').addEventListener('click', function () {
 			//	map2.setCenter([39, -96.4]);
