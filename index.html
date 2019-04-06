@@ -2,175 +2,45 @@
 <html>
 <head>
 	<!-- the mapbox libraries -->
-	<title>Live data maps</title>
-
+	
 	<meta charset='utf-8' />
-    
+    <title>Earthquakes</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet' />
     <link href='https://www.mapbox.com/base/latest/base.css' rel='stylesheet' />
- 
-
-	<style>
-        
+    <style>
         body { margin:0; padding:0; }
-        #map {height: 70vh; width: 99%; padding: 10px }
-        #map2 {height: 70vh; width: 70%; float: left ; padding-left: 10px}
-	
-	/* Style for the block that test will print to on Map 2 */
-		#capture {
-	       height: 70vh;
-	       width: 420px;
-	       overflow: hidden;
-	      
-	       background-color: #ECECFB;
-	       border: thin solid #333;
-	       border-left: none;
-       }
-
-		h1 {
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 19pt;
-		font-weight: 300;
-		line-height: 1.75em;
-		color: #282828;
-		padding-left: 10px; 
-		
-	}
-		p {
-		font-family: 'Source Sans Pro', sans-serif;
-		font-size: 10pt;
-		font-weight: 300;
-		line-height: 1.75em;
-		color: #282828;
-		padding-left: 10px;
-		}
-
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+	<div id="map" style="width: 800px; height: 800px;" class="mapboxgl-map"></div> 
 	</style>
 
 </head>
 <body>
-<!-- Thanks to Mapbox toggle tutorial for this code https://www.mapbox.com/mapbox-gl-js/example/toggle-layers/-->
-
-<style>
-/* style for the toggle button.  Thats to tutorial from mapbox for the basis of this code*/
-    #menu {
-        background: #fff;
-        position: absolute;
-        z-index: 1;
-        top: 170px;
-        left: 20px;
-        border-radius: 3px;
-        width: 120px;
-        border: 1px solid rgba(0,0,0,0.4);
-        font-family: 'Open Sans', sans-serif;
-    }
-
-    #menu a {
-        font-size: 13px;
-        color: #404040;
-        display: block;
-        margin: 0;
-        padding: 0;
-        padding: 10px;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0,0,0,0.25);
-        text-align: center;
-    }
-
-    #menu a:last-child {
-        border: none;
-    }
-
-    #menu a:hover {
-        background-color: #f8f8f8;
-        color: #404040;
-    }
-
-    #menu a.active {
-        background-color: #3887be;
-        color: #ffffff;
-    }
-
-    #menu a.active:hover {
-        background: #3074a4;
-    }
-
-    /* Style for the Return Home Button.*/
-
-        #gohome {
-        display: block;
-        position: absolute;
-        
-        top: 220px;
-        left: 20px;
-        border-radius: 3px;
-        width: 120px;
-        border: 1px solid rgba(0,0,0,0.4);
-        font-size: 12px;
-        text-align: center;
-        color: #fff;
-        background: #CC6822
-    } 
-
-     	#gohome2 {
-        display: block;
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        border-radius: 3px;
-        float: bottom;
-        width: 120px;
-        border: 1px solid rgba(0,0,0,0.4);
-        font-size: 12px;
-        text-align: center;
-        color: #fff;
-        background: #CC6822
-
-
-</style>
- 
-<h1 style= "padding: 10px"> USGS Recorded Earthquakes </h1>
-<hr>
-<p> Points represent all earthquake events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes.  </p>
-<nav id="menu"></nav>
-
 	<div id='map'></div>
-	
-	<!-- The button to Unzoon the map -->
-	<button id= "gohome"> Full Extent </button>
-
 	<script>
-	//The Map box map
 	mapboxgl.accessToken = 'pk.eyJ1IjoibG1oYW5uYWgiLCJhIjoiY2pvNHYzNnZ4MDBuNjNxcHUwZzR3dmR5bSJ9.c2ULzGUVCYiPhkvdiqTRZw';
 		var map = new mapboxgl.Map({
 		container: 'map',
 		style: 'mapbox://styles/lmhannah/cjoj9wpdv9cr32rmnje5hm7mj',
 		});
-		map.setCenter([-174, 20]);
-		map.setZoom(1);
+		map.setCenter([-120, 60]);
+		map.setZoom(3);
 
 		map.on('load', function(){
-			//Adds all earthquakes in the past 7days greater than 2.5 mag
+			//Adds all earthquakes in the past week greater than 2.5 mag
 			map.addSource('earthquakes', {
 				"type": "geojson",
 				"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 			});
-			//Adds geojson file with Tectonic plate data
-			map.addSource('Tectonic plates', {
-				"type": "geojson",
-				"data": "plates.geojson"
-			
+			map.addSource('ringOfFire', {
+				"type": "json",
+				"data": "ring_of_fire.json"
 			});
-			//Add circle markers to the map based on magnitude intensity. 
 			map.addLayer({
 				"id":"quakes",
 				"type": "circle",
 				"source": "earthquakes",
-				"layout": {
-					"visibility": "visible",
-				},
 				//style the markers
 				"paint": {
 					"circle-color": "#FF0800",
@@ -178,38 +48,32 @@
 						property: 'mag',
 						type: 'exponential',
 						stops: [
-						[0.5, .5],
-						[1, 1],
-						[2, 2],
-						[3, 3],
-						[4, 4],
-						[5, 5],
-						[6, 6],
-						[7, 7],
-						[8, 8],
-						[9, 9],
-						[10, 10]
+						[0.5, 5],
+						[1, 10],
+						[2, 50],
+						[3, 75],
+						[4, 100],
+						[5, 200],
+						[6, 300],
+						[7, 400],
+						[8, 500],
+						[9, 600],
+						[10,700]
 						]
 						},			
 						"circle-opacity": 0.5
 					} 
 
 			});
-			//Add layer with tectonic plates to the map in line format.  
 			map.addLayer({
-							"id": "Tectonic plates",
-							"type": "line",
-							"source": "Tectonic plates",
-							"layout": {
-							"visibility": "visible",
-							},
-	
-						});
+				"id": "ringFire",
+				"type": "polygon",
+				"source": "ringOfFire"
+			})
 
-			//Makes popup that queries the geojson data features and returns the information for the popup
 			map.on('click', 'quakes', function (e) {
 				var coordinates= e.features[0].geometry.coordinates.slice();
-				var description= "<p>Magnitude: "+e.features[0].properties.mag+"<br>Location: "+e.features[0].properties.place+"<br> URL: <a target= '_blank' href= '"+e.features[0].properties.url+"'> Click here for more information about this event </a> </p>"
+				var description= "<p>Magnitude: "+e.features[0].properties.mag+"<br>Location: "+e.features[0].properties.place+"<br> URL: <a href= '"+e.features[0].properties.url+"'> Click here for more information about this event </a> </p>"
 			//popup only appears over feature being pointed to if map is zoomed out	
 				while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 					coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -232,106 +96,15 @@
 			});
 		});
 
-//Thanks to the Mapbox tutorial for this code to toddle layers on/off.  This uses the #menu style 		
-var toggle = [ 'Tectonic plates'];
 
-for (var i = 0; i < toggle.length; i++) {
-    var id = toggle[i];
-
-    var link = document.createElement('a');
-    link.href = '#';
-    link.className = 'active';
-    link.textContent = id;
-
-    link.onclick = function (e) {
-        var clickedLayer = this.textContent;
-        e.preventDefault();
-        e.stopPropagation();
-
-        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-        if (visibility === 'visible') {
-            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-            this.className = '';
-        } else {
-            this.className = 'active';
-            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        }
-    };
-
-    var layers = document.getElementById('menu');
-    layers.appendChild(link);
-}
-
-    //Code for the button to unzoom and return to original extent 
-	document.getElementById('gohome').addEventListener('click', function () {
-			map.setCenter([-174, 20]);
-		    map.setZoom(1);
-			});
-
-
-
-// Add zoom and rotation controls to the map.
-map.addControl(new mapboxgl.NavigationControl()
-	);
-
-	
 	</script>
-
-<hr>
 
 
 	<!--Map 2-->
-<hr>
-<hr>
 
-<h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
-<p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below.  Click the marker for information about the anomaly and percent confidence (0-100) that MODIS has detected a fire.  Data updates every 24hrs </p>
-
-
-		<div id="map2"></div>
-		
-		<div id="capture"></div>
-
-		<!--<button id= "gohome2"> Full Extent </button> -->
-    
-    <script>
-      var map2;
-      var src = 'https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_USA_contiguous_and_Hawaii_24h.kml';
-
-      function initMap() {
-        map2 = new google.maps.Map(document.getElementById('map2'), {
-          center: new google.maps.LatLng(-19, 146),
-          zoom: 3,
-          style: 'map2',
-          gestureHandling: 'greedy',
-          mapTypeId: 'terrain'
-        });
-//Thanks to Google Map Develper Tutorial for this code.  https://developers.google.com/maps/documentation/javascript/kml
-        var kmlLayer = new google.maps.KmlLayer(src, {
-          suppressInfoWindows: true,
-          preserveViewport: false,
-          map: map2
-        });
-
-        //Prints KML data to the info window.  
-        kmlLayer.addListener('click', function(event) {
-          var content = event.featureData.infoWindowHtml;
-          var testimonial = document.getElementById('capture');
-          testimonial.innerHTML = content;
-        });
-        //google.maps.event.addDomListener(outer, 'click', function() {
- 		 //map.setCenter(-19, 146)
- 		 //});
-      }
-
-    </script>
-    <!--My Google Map API-->
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnvwSziy1FdcNPosn5tdY3YgEPWIjWbJ4&callback=initMap">
-    </script>
-    <br>
-    <br>
-  </body>
+	
+ 
+</body>
 </html>
+
 
