@@ -54,15 +54,15 @@
 <!-- Thanks to Mapbox toggle tutorial for this code https://www.mapbox.com/mapbox-gl-js/example/toggle-layers/-->
 
 <style>
-/* style for the toggle button.  Thats to tutorial from mapbox for the basis of this code*/
+/* style for the toggle button.  Thanks to tutorial from mapbox for the basis of this code*/
     #menu {
         background: #fff;
         position: absolute;
         z-index: 1;
-        top: 170px;
-        left: 20px;
+        top: 11vw;
+        left: 2vw;
         border-radius: 3px;
-        width: 120px;
+        width: 8vw;
         border: 1px solid rgba(0,0,0,0.4);
         font-family: 'Open Sans', sans-serif;
     }
@@ -103,10 +103,10 @@
         display: block;
         position: absolute;
         
-        top: 220px;
-        left: 20px;
+        top: 14vw;
+        left: 2vw;
         border-radius: 3px;
-        width: 120px;
+        width: 8vw;
         border: 1px solid rgba(0,0,0,0.4);
         font-size: 12px;
         text-align: center;
@@ -114,26 +114,13 @@
         background: #CC6822
     } 
 
-     	#gohome2 {
-        display: block;
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        border-radius: 3px;
-        float: bottom;
-        width: 120px;
-        border: 1px solid rgba(0,0,0,0.4);
-        font-size: 12px;
-        text-align: center;
-        color: #fff;
-        background: #CC6822
 
 
 </style>
  
 <h1 style= "padding: 10px"> USGS Recorded Earthquakes </h1>
 <hr>
-<p> Points represent all earthquake events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes.  </p>
+<h3 style= 'padding: 10px'> Points represent all earthquake events with magnitude 2.5 or greater occuring over the past 7 days.  Information updates every 5 minutes from the USGS live earthquake feed. Click on the markers to learn more about each event. </h3>
 <nav id="menu"></nav>
 
 	<div id='map'></div>
@@ -276,62 +263,7 @@ map.addControl(new mapboxgl.NavigationControl()
 	);
 
 	
-	</script>
-
-<hr>
-
-
-	<!--Map 2-->
-<hr>
-<hr>
-
-<h1 style= "padding: 10px"> MODIS Predicted Active Wildfires </h1>
-<p> MODIS is a satellite in orbit with several different instruments used to monitor and collect data about Earth's Surface.  MODIS is able to detect "thermal anomalies" which are often wild fires.  These detected thermal anomalies are mapped below.  Click the marker for information about the anomaly and percent confidence (0-100) that MODIS has detected a fire.  Data updates every 24hrs </p>
-
-
-		<div id="map2"></div>
-		
-		<div id="capture"></div>
-
-		<!--<button id= "gohome2"> Full Extent </button> -->
-    
-    <script>
-      var map2;
-      var src = 'https://firms.modaps.eosdis.nasa.gov/active_fire/c6/kml/MODIS_C6_USA_contiguous_and_Hawaii_24h.kml';
-
-      function initMap() {
-        map2 = new google.maps.Map(document.getElementById('map2'), {
-          center: new google.maps.LatLng(-19, 146),
-          zoom: 3,
-          style: 'map2',
-          gestureHandling: 'greedy',
-          mapTypeId: 'terrain'
-        });
-//Thanks to Google Map Develper Tutorial for this code.  https://developers.google.com/maps/documentation/javascript/kml
-        var kmlLayer = new google.maps.KmlLayer(src, {
-          suppressInfoWindows: true,
-          preserveViewport: false,
-          map: map2
-        });
-
-        //Prints KML data to the info window.  
-        kmlLayer.addListener('click', function(event) {
-          var content = event.featureData.infoWindowHtml;
-          var testimonial = document.getElementById('capture');
-          testimonial.innerHTML = content;
-        });
-        //google.maps.event.addDomListener(outer, 'click', function() {
- 		 //map.setCenter(-19, 146)
- 		 //});
-      }
-
-    </script>
-    <!--My Google Map API-->
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnvwSziy1FdcNPosn5tdY3YgEPWIjWbJ4&callback=initMap">
-    </script>
-    <br>
-    <br>
+	</script>	
   </body>
 </html>
 
